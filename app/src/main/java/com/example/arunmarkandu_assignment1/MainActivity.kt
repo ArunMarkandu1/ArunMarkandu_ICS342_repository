@@ -1,3 +1,4 @@
+/*
 package com.example.arunmarkandu_assignment1
 
 import androidx.appcompat.app.AppCompatActivity
@@ -9,3 +10,5 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
+
+ */

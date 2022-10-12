@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.arunmarkandu_assignment1">
+    package="com.ics342.weatherappcompose">
 
     <application
         android:allowBackup="true"
@@ -11,11 +11,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ArunMarkandu_Assignment1"
+        android:theme="@style/Theme.WeatherAppCompose"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.WeatherAppCompose">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

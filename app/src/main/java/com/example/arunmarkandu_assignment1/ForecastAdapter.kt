@@ -1,3 +1,4 @@
+/*
 package com.example.arunmarkandu_assignment1
 
 import android.view.LayoutInflater
@@ -78,3 +79,4 @@ class ForecastViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
 }
+*/
