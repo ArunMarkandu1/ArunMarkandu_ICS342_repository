@@ -11,9 +11,4 @@
     <string name = "sunset">Sunset: %s</string>
     <string name = "forecast">Forecast</string>
 
-    <string name= "city_name">St. Paul, MN</string>
-    <string name="high">High: %d°</string>
-    <string name = "low">Low: %d°</string>
-    <string name= "estimated_temp">Feels Like %d°</string>
-
 </resources>

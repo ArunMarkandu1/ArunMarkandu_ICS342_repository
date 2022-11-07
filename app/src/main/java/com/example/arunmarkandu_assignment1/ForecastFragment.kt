@@ -1,3 +1,4 @@
+/*
 package com.example.arunmarkandu_assignment1
 
 import android.os.Bundle
@@ -59,3 +60,4 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast) {
         //binding.forecastList.layoutManager = LinearLayoutManager(requireContext())
     }
 }
+ */

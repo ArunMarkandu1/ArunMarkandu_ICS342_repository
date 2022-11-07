@@ -1,5 +1,5 @@
 package com.example.arunmarkandu_assignment1
-
+/*
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -22,3 +22,4 @@ class CurrentConditionsFragment : Fragment(R.layout.fragment_current_conditions)
     }
 
 }
+ */
