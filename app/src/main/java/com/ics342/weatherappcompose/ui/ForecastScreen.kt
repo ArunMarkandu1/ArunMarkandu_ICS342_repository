@@ -1,8 +1,6 @@
 package com.ics342.weatherappcompose.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,13 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.ics342.weatherappcompose.R
-import com.ics342.weatherappcompose.models.*
-
+import com.ics342.weatherappcompose.models.DayForecast
+import com.ics342.weatherappcompose.models.ForecastDataItem
+import com.ics342.weatherappcompose.models.ForecastTemp
 import com.ics342.weatherappcompose.toHourMinute
 import com.ics342.weatherappcompose.toMonthDay
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.List
 
 val startDay = 1665014340L
 val sunrise = 1664953200L
