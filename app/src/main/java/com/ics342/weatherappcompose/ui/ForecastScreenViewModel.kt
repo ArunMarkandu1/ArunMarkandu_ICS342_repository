@@ -4,6 +4,7 @@ import com.service.OpenWeatherMapAPI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import com.ics342.weatherappcompose.models.ForecastData
+import com.ics342.weatherappcompose.models.LatitudeLongitude
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -19,5 +20,17 @@ class ForecastScreenViewModel @Inject constructor(private val api: OpenWeatherMa
     fun fetchData() = runBlocking{
         val forecastData = api.getForecast(55347)
         _forecastData.trySend(forecastData)
+    }
+
+    fun fetchForecast(latitudeLongitude: LatitudeLongitude?) = runBlocking{
+        val forecastData = latitudeLongitude?.let {
+            api.getForecast(
+                latitudeLongitude.latitude,
+                latitudeLongitude.longitude,
+            )
+        }
+        if (forecastData != null) {
+            _forecastData.trySend(forecastData)
+        }
     }
 }

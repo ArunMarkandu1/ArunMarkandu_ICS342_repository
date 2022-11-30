@@ -21,27 +21,35 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import android.util.Log
 import com.ics342.weatherappcompose.R
 import com.ics342.weatherappcompose.models.CurrentConditions
+import com.ics342.weatherappcompose.models.LatitudeLongitude
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun CurrentConditions(
+    latitudeLongitude: LatitudeLongitude?,
+    onGetWeatherForMyLocationClick: () -> Unit,
     viewModel: CurrentConditionsViewModel = hiltViewModel(),
     onForecastButtonClick: () -> Unit,
 ) {
     val state by viewModel.currentConditions.collectAsState(null)
 
     LaunchedEffect(Unit) {
-        viewModel.fetchData()
+        if (latitudeLongitude != null) {
+            viewModel.fetchCurrentLocationData(latitudeLongitude)
+        } else {
+            viewModel.fetchData()
+        }
     }
+
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.app_name)) },
     ) {
+
         state?.let {
-            CurrentConditionsContent(it) {
-                onForecastButtonClick()
-            }
+            CurrentConditionsContent(it, onGetWeatherForMyLocationClick, onForecastButtonClick)
         }
     }
 }
@@ -49,7 +57,8 @@ fun CurrentConditions(
 @Composable
 private fun CurrentConditionsContent(
     currentConditions: CurrentConditions,
-    onForecastButtonClick: () -> Unit
+    onGetWeatherForMyLocationClick: () -> Unit,
+    onForecastButtonClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -59,7 +68,7 @@ private fun CurrentConditionsContent(
     ) {
 
         Text(
-            text = stringResource(id = R.string.city),
+            text = currentConditions.cityName,
             style = TextStyle(
                 fontWeight = FontWeight(600),
                 fontSize = 24.sp
@@ -93,7 +102,8 @@ private fun CurrentConditionsContent(
                 )
             }
             Spacer(modifier = Modifier.weight(1f, fill = true))
-            val iconUrl = String.format("https://openweathermap.org/img/wn/%s@2x.png", currentConditions.weatherData.firstOrNull()?.iconName)
+            val iconUrl = String.format("https://openweathermap.org/img/wn/%s@2x.png",
+                currentConditions.weatherData.firstOrNull()?.iconName)
             AsyncImage(
                 model = iconUrl,
                 modifier = Modifier.size(72.dp),
@@ -111,25 +121,31 @@ private fun CurrentConditionsContent(
                 fontSize = 16.sp,
 
                 )
-            Text(text = stringResource(id = R.string.low_temp, currentConditions.conditions.minTemperature.toInt()), style = textStyle)
-            Text(text = stringResource(id = R.string.high_temp, currentConditions.conditions.maxTemperature.toInt()), style = textStyle)
-            Text(text = stringResource(id = R.string.humidity, currentConditions.conditions.humidity.toInt()), style = textStyle)
-            Text(text = stringResource(id = R.string.pressure, currentConditions.conditions.pressure.toInt()), style = textStyle)
+            Text(text = stringResource(id = R.string.low_temp,
+                currentConditions.conditions.minTemperature.toInt()), style = textStyle)
+            Text(text = stringResource(id = R.string.high_temp,
+                currentConditions.conditions.maxTemperature.toInt()), style = textStyle)
+            Text(text = stringResource(id = R.string.humidity,
+                currentConditions.conditions.humidity.toInt()), style = textStyle)
+            Text(text = stringResource(id = R.string.pressure,
+                currentConditions.conditions.pressure.toInt()), style = textStyle)
         }
 
         Spacer(modifier = Modifier.height(72.dp))
         Button(onClick = onForecastButtonClick) {
             Text(text = stringResource(id = R.string.forecast))
         }
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = onGetWeatherForMyLocationClick) {
+            Text(text = stringResource(id = R.string.get_weather_for_my_location))
+        }
     }
-
 }
-
 
 @Preview(
     showSystemUi = true
 )
 @Composable
 fun CurrentConditionsPreview() {
-    CurrentConditions {}
+
 }

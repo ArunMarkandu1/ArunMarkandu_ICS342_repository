@@ -15,4 +15,5 @@
     <string name = "low">Low: %1$.2f°</string>
     <string name = "estimated_temp">Feels Like %d°</string>
     <string name="temperature">%s°</string>
+    <string name="get_weather_for_my_location">"get weather for my location"</string>
 </resources>

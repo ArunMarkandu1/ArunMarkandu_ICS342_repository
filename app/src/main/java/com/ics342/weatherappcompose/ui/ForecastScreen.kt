@@ -1,6 +1,7 @@
 package com.ics342.weatherappcompose.ui
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import com.ics342.weatherappcompose.R
 import com.ics342.weatherappcompose.models.DayForecast
 import com.ics342.weatherappcompose.models.ForecastDataItem
 import com.ics342.weatherappcompose.models.ForecastTemp
+import com.ics342.weatherappcompose.models.LatitudeLongitude
 import com.ics342.weatherappcompose.toHourMinute
 import com.ics342.weatherappcompose.toMonthDay
 
@@ -46,17 +48,26 @@ val forecastData = (0 until 16).map {
     )
 }
 
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun forecastScreen(
-    viewModel: ForecastScreenViewModel = hiltViewModel(),
+fun ForecastScreen(
+    latitudeLongitude: LatitudeLongitude?,
+    forecastViewModel: ForecastScreenViewModel = hiltViewModel(),
 ) {
 
-    val state by viewModel.forecastData.collectAsState(null)
-
+    val state by forecastViewModel.forecastData.collectAsState(null)
     LaunchedEffect(Unit) {
-        viewModel.fetchData()
+        if (latitudeLongitude != null) {
+            Log.d("TAG", "calling new API")
+            forecastViewModel.fetchForecast(latitudeLongitude)
+        } else {
+            Log.d("TAG", "calling old API")
+            forecastViewModel.fetchData()
+        }
     }
+
+
     Scaffold(topBar = { AppBar(title = stringResource(id = R.string.forecast_name)) }) {
         state?.let {
             LazyColumn {
@@ -99,6 +110,7 @@ private fun ForecastRow(item: ForecastDataItem) {
         Spacer(modifier = Modifier.weight(1f, fill = true))
         Column {
             Text(
+                //text = stringResource(id = R.string.high, item?.temp?.max!!),
                 text = stringResource(id = R.string.high, item?.temp?.max!!),
                 style = textStyle,
             )
